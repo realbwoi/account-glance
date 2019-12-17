@@ -1,0 +1,68 @@
+.login-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.logo {
+  text-align: center;
+  flex: 0 0 100%;
+  margin: 0 0 128px 0;
+}
+
+.logins {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 100%;
+  /* min-height: 200px; */
+}
+
+.bank-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 32px;
+  min-width: 190px;
+  min-height: 124px;
+  text-align: center;
+}
+
+.bank-login h3 {
+  margin: 0 0 32px 0;
+  text-align: center;
+  flex: 1;
+}
+
+.logged-in-msg {
+  align-self: center;
+}
+
+.bank-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.hr {
+  flex: 1;
+  height: auto;
+  background-color: black;
+  max-width: 1px;
+}
+
+.login-btn {
+  text-align: center;
+  margin: 32px auto;
+  flex: 0 0 100%;
+}
+
+.login-error-text {
+  color: rgb(172, 31, 31);
+  font-size: 14px;
+}
+
+.additional-error {
+  font-size: 12px;
+  color: rgb(172, 31, 31);
+  font-style: italic;
+}
