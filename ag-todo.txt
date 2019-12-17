@@ -1,5 +1,0 @@
-[X] Add variables for seperate account info
-[X] Create function that returns statements
-[X] Create function that returns Available balance
-[-] Create API endpoint for: (getStatements)
-[-] Create Front-end in React (Login, Balances, Recent Transactions, Calculator)
