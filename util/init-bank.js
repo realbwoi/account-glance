@@ -49,6 +49,7 @@ exports.isAuthorized = async function(user, pass, banking, res, req) {
   bank.getStatement(dateRange(), async function (err, response) {
     if (err) {
       console.log(`OFX ERROR: ${err}`);
+      res.send(`${JSON.stringify(err)}`);
     } else {
       // console.log(response.body.OFX.BANKMSGSRSV1);
       // console.log(response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST);

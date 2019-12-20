@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Calculator({chaseBalance, patelcoBalance}) {
   const calcInputRef = React.createRef();
@@ -11,8 +12,11 @@ export default function Calculator({chaseBalance, patelcoBalance}) {
 
   return(
     <div>
+      <Link to="/dashboard">
+        <button>Close</button>
+      </Link>
       <div>
-        <input className="calc-input-window" type="text" ref={calcInputRef} style={{direction: 'rtl'}} defaultValue="0" onChange={updateDisplay()}></input>
+        <input className="calc-input-window" type="text" ref={calcInputRef} style={{direction: 'rtl'}} defaultValue="0" onChange={updateDisplay}></input>
       </div>
       <div className="calc-btns-wrap">
         <div className="calc-btn-row-1">

@@ -51,11 +51,11 @@ export default function Login(props) {
         props.setPatelcoBalance(balance);
         props.setPatelcoStatement(statement);
         setLoadingP(false);
-      } else if (statusCode !== 0 && banking === 'Chase') {
+      } else if ((statusCode !== 0 || res === 'Error: HTTP/1.1 400 Bad Request') && banking === 'Chase') {
         setLoadingC(false);
         setLoginErrorC(true);
         console.log(res.data);
-      } else if (statusCode !== 0 && banking === 'Patelco') {
+      } else if ((statusCode !== 0 || res === 'Error: HTTP/1.1 400 Bad Request') && banking === 'Patelco') {
         setLoadingP(false);
         setLoginErrorP(true);
         console.log(res.data);
@@ -79,7 +79,7 @@ export default function Login(props) {
   const handleAuthorizedLogin = () => {
     localStorage.setItem('data', JSON.stringify({
       isAuthorized_P: props.isAuthorized_P,
-      isAuthorized_C: props.isAuthorized_C,
+      isAuthorized_C: props.isAuthorized_C, 
       chaseBalance: props.chaseBalance,
       patelcoBalance: props.patelcoBalance,
       chaseStatement: props.chaseStatement,
@@ -87,32 +87,6 @@ export default function Login(props) {
     }));
     props.handleBankInfo(props.chaseStatement, props.patelcoStatement, props.chaseBalance, props.patelcoBalance, props.isAuthorized_C, props.isAuthorized_P);
   }
-
-  // useEffect(() => {
-  //   if(localStorage.data === 'undefined' && !props.isAuthorized_P && !props.isAuthorized_C && (!loadingC || !loadingP)) {
-  //     const setAllStates = () => {
-  //       props.setIsAuthorized_C(props.isAuthorized_C)
-  //       props.setIsAuthorized_P(props.isAuthorized_P)
-  //       props.setChaseStatement(props.chaseStatement)
-  //       props.setPatelcoStatement(props.patelcoStatement)
-  //       props.setChaseBalance(props.chaseBalance)
-  //       props.setPatelcoBalance(props.patelcoBalance)
-  //     }
-  //     setAllStates();
-  //   }
-  //   //  else if (localStorage.data !== 'undefined' && document.cookie !== "") {
-  //   //   const local = JSON.parse(localStorage.getItem('data'));
-  //   //   const setAllStates = () => {
-  //   //     props.setIsAuthorized_C(local.isAuthorized_C)
-  //   //     props.setIsAuthorized_P(local.isAuthorized_P)
-  //   //     props.setChaseStatement(local.chaseStatement)
-  //   //     props.setPatelcoStatement(local.patelcoStatement)
-  //   //     props.setChaseBalance(local.chaseBalance)
-  //   //     props.setPatelcoBalance(local.patelcoBalance)
-  //   //   }
-  //   //   setAllStates();
-  //   // }
-  // }, [props]);
 
   useEffect(() => {
     return () => {
