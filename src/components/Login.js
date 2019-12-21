@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/login.css';
-
+import patelcoImg from '../util/patelco-img';
+import chaseImg from '../util/chase-img';
 
 
 export default function Login(props) {
@@ -79,7 +80,7 @@ export default function Login(props) {
   const handleAuthorizedLogin = () => {
     localStorage.setItem('data', JSON.stringify({
       isAuthorized_P: props.isAuthorized_P,
-      isAuthorized_C: props.isAuthorized_C, 
+      isAuthorized_C: props.isAuthorized_C,
       chaseBalance: props.chaseBalance,
       patelcoBalance: props.patelcoBalance,
       chaseStatement: props.chaseStatement,
@@ -106,7 +107,7 @@ export default function Login(props) {
             : ( props.isAuthorized_C
                 ? isLoggedIn(chase)
                 : <>
-                    <h3 style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><img src="https://www.pngix.com/pngfile/big/143-1433542_chase-logo-png-chase-manhattan-logo-1960-transparent.png" style={{display: 'inline-block', width: 24, marginRight: 8}} alt="Chase Logo"></img>{chase}</h3>
+                    <h3 style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><img src={chaseImg} style={{display: 'inline-block', width: 64}} alt="Chase Logo"></img>{chase}</h3>
                     <form onSubmit={onLoginSubmit} className="bank-form">
                       <label htmlFor="username">
                         <input type="text" name="username" bank={chase} placeholder="Username"></input>
@@ -139,7 +140,11 @@ export default function Login(props) {
           : ( props.isAuthorized_P
               ? isLoggedIn(patelco)
               : <>
-                  <h3 style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><img src="https://media.glassdoor.com/sqll/23451/patelco-credit-union-squarelogo-1391817925247.png" style={{width: 32, marginRight: 8}} alt="Patelco Logo"></img>{patelco}</h3>
+                  <h3 style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <img
+                      src={patelcoImg}
+                      style={{width: 32, marginRight: 8}} alt="Patelco Logo"></img>
+                  {patelco}</h3>
                   <form onSubmit={onLoginSubmit} className="bank-form">
                     <label htmlFor="username">
                       <input type="text" name="username" bank={patelco} placeholder="Username"></input>
