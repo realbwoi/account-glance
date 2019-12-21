@@ -171,7 +171,7 @@ export default function Login(props) {
 
       <Link className="login-btn" to="/dashboard">
         <button
-          className="login-see-dash-btn"
+          className="login-goto-dash-btn"
           onClick={handleAuthorizedLogin}
           disabled={props.isAuthorized_C || props.isAuthorized_P ? false : true}
         >

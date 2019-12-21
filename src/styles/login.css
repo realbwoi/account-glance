@@ -69,15 +69,15 @@
   width: auto;
 }
 
-.login-see-dash-btn {
+.login-goto-dash-btn {
   cursor: pointer;
   font-size: 18px;
   font-weight: normal;
-  transition: ease-in-out 0.175s;
+  transition: ease-in-out 0.175s, width 0.250s ease-in-out;
   width: 430px;
 }
 
-.login-see-dash-btn:disabled {
+.login-goto-dash-btn:disabled {
   cursor: default;
   background-color: rgb(199, 211, 212);
   box-shadow:
@@ -87,13 +87,14 @@
     0 8px 8px rgba(0,0,0,0),
     0 16px 16px rgba(0,0,0,0),
     0 32px 32px rgba(0,0,0,0);
+  width: 160px;
 }
 
-.login-see-dash-btn:hover {
+.login-goto-dash-btn:hover {
   background-color: rgb(62, 176, 182);
 }
 
-.login-see-dash-btn:disabled:hover {
+.login-goto-dash-btn:disabled:hover {
   background-color: rgb(199, 211, 212);
   box-shadow:
     0 1px 1px rgba(0,0,0,0),
