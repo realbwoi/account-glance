@@ -96,7 +96,7 @@ export default function Login(props) {
 
   return (
     <div className="login-wrap">
-      <h1 className="logo">Account Glance</h1>
+      <h1 className="logo">&#9865; Account Glance</h1>
 
       <div className="logins">
         <div className="bank-login">
@@ -106,7 +106,7 @@ export default function Login(props) {
             : ( props.isAuthorized_C
                 ? isLoggedIn(chase)
                 : <>
-                    <h3>{chase}</h3>
+                    <h3 style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><img src="https://www.pngix.com/pngfile/big/143-1433542_chase-logo-png-chase-manhattan-logo-1960-transparent.png" style={{display: 'inline-block', width: 24, marginRight: 8}} alt="Chase Logo"></img>{chase}</h3>
                     <form onSubmit={onLoginSubmit} className="bank-form">
                       <label htmlFor="username">
                         <input type="text" name="username" bank={chase} placeholder="Username"></input>
@@ -114,7 +114,7 @@ export default function Login(props) {
                       <label htmlFor="password">
                         <input type="password" name="password" placeholder="Password"></input>
                       </label>
-                      <input type="submit" value="Submit" />
+                      <input className="login-submit-btn" type="submit" value="Submit" />
                       {
                         loginErrorC
                         ? <div>
@@ -139,7 +139,7 @@ export default function Login(props) {
           : ( props.isAuthorized_P
               ? isLoggedIn(patelco)
               : <>
-                  <h3>{patelco}</h3>
+                  <h3 style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><img src="https://media.glassdoor.com/sqll/23451/patelco-credit-union-squarelogo-1391817925247.png" style={{width: 32, marginRight: 8}} alt="Patelco Logo"></img>{patelco}</h3>
                   <form onSubmit={onLoginSubmit} className="bank-form">
                     <label htmlFor="username">
                       <input type="text" name="username" bank={patelco} placeholder="Username"></input>
@@ -147,7 +147,7 @@ export default function Login(props) {
                     <label htmlFor="password">
                       <input type="password" name="password" placeholder="Password"></input>
                     </label>
-                    <input type="submit" value="Submit" />
+                    <input className="login-submit-btn" type="submit" value="Submit" />
                     {
                       loginErrorP
                       ? <div>
@@ -166,6 +166,7 @@ export default function Login(props) {
 
       <Link className="login-btn" to="/dashboard">
         <button
+          className="login-see-dash-btn"
           onClick={handleAuthorizedLogin}
           disabled={props.isAuthorized_C || props.isAuthorized_P ? false : true}
         >
