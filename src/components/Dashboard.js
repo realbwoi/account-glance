@@ -3,6 +3,7 @@ import { Redirect, Link, Route } from 'react-router-dom';
 import axios from 'axios';
 import Statements from "./Statements";
 import Calculator from "./Calculator";
+import "../styles/dashboard.css";
 
 
 export default function Dashboard(props) {

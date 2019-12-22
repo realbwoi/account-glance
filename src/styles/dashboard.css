@@ -1,0 +1,9 @@
+.App {
+  .padding-top: 0;
+}
+
+.header-bar {
+  position: absolute;
+  top: 0;
+  display: flex;
+}
