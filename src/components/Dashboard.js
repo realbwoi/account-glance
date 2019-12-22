@@ -65,8 +65,11 @@ export default function Dashboard(props) {
 
   return (
     redirect || (localStorage.length === 0 && !logoutSuccessful) ? redirectOnLogout() :
-    <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', minHeight: '100vh'}}>
-      <div>
+    <div className="dashboard-wrapper">
+      <div className="header-bar">
+        <button onClick={handleLogout} className="logout-btn">Logout</button>
+      </div>
+      <div className="balances-info-wrap">
         {
           logoutConfirmed
           ? <div>
@@ -87,17 +90,14 @@ export default function Dashboard(props) {
             </div>
           : ''
         }
-        <div className="header-bar">
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-        <h2 style={{textTransform: 'uppercase'}}>Balances</h2>
+        <h2 className="balances-header-text">Balances</h2>
         {
           props.chaseBalance
           ? (
-            <div>
-              <h3>{ chase }</h3>
-              <span>${props.chaseBalance}</span>
-              <Link to={`/dashboard/statements/${chase}`}>See Recent Transactions</Link>
+            <div className="bank-balances-info-wrap">
+              <h3 className="bank-name">{ chase }</h3>
+              <span className="actual-balance-text">${props.chaseBalance}</span>
+              <Link className="statements-link" to={`/dashboard/statements/${chase}`}>See Recent Transactions</Link>
             </div>
           )
           : ''
@@ -113,9 +113,11 @@ export default function Dashboard(props) {
           )
           : ''
         }
-        <div className="sticky-calc-btn">
+        <div className="sticky-calc-btn-container">
           <Link to="/dashboard/calculator">
-            <button className="icon-calc-btn">Calculator</button>
+            <button className="icon-calc-btn">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="calculator" className="svg-inline--fa fa-calculator fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="white" d="M400 0H48C22.4 0 0 22.4 0 48v416c0 25.6 22.4 48 48 48h352c25.6 0 48-22.4 48-48V48c0-25.6-22.4-48-48-48zM128 435.2c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm0-128c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm128 128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm0-128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8v-38.4c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v38.4zm128 128c0 6.4-6.4 12.8-12.8 12.8h-38.4c-6.4 0-12.8-6.4-12.8-12.8V268.8c0-6.4 6.4-12.8 12.8-12.8h38.4c6.4 0 12.8 6.4 12.8 12.8v166.4zm0-256c0 6.4-6.4 12.8-12.8 12.8H76.8c-6.4 0-12.8-6.4-12.8-12.8V76.8C64 70.4 70.4 64 76.8 64h294.4c6.4 0 12.8 6.4 12.8 12.8v102.4z"></path></svg>
+            </button>
           </Link>
         </div>
       </div>
