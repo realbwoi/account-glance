@@ -21,6 +21,6 @@ exports.patelco = {
   password: '',
   accId: 'diaforetikos-S10',
   accType: 'CHECKING',
-  appVer: 1800,
+  appVer: 2500,
   app: 'QWIN'
 }

@@ -1,39 +1,42 @@
 import React from 'react';
 import { useParams, Link } from "react-router-dom";
+import '../styles/statements.css';
 
 export default function Statements({chaseStatement, patelcoStatement}) {
   let { bank } = useParams();
 
   return (
-    <div style={{position: 'absolute', top: 0, left: 'calc(100% - 1000px)', display: 'flex', flexDirection: 'column', width: 1000, minHeight: '100%', backgroundColor: 'red', zIndex: 999}}>
-      <Link to="/dashboard">
-        <button>&#60;</button>
-      </Link>
-      <h2>{bank} Statement</h2>
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        {
-          bank === 'Chase' ?
-          chaseStatement.map((statement, i) => {
-            return (
-              <div key={"c"+i}>
-                <span>{statement.date}</span>
-                <span>{statement.type}</span>
-                <span>{statement.name}</span>
-                <span>{'$' + statement.amt}</span>
-              </div>
-            )
-          }) :
-          patelcoStatement.map((statement, i) => {
-            return (
-              <div key={"p"+i}>
-                <span>{statement.date}</span>
-                <span>{statement.type}</span>
-                <span>{statement.name}</span>
-                <span>{'$' + statement.amt}</span>
-              </div>
-            )
-          })
-        }
+    <div className="statement-wrapper">
+      <div className="statement-container">
+        <div className="statement-head">
+          <Link to="/dashboard">
+            <button className="back-btn">&#60;</button>
+          </Link>
+          <h2 className='statement-bank-heading'>{bank} Statement</h2>
+        </div>
+        <div className="sm-line-wrap">
+          {
+            bank === 'Chase' ?
+            chaseStatement.map((statement, i) => {
+              return (
+                <div className="statement-line" key={"c"+i}>
+                  <span className="sm-text sm-date">{statement.date}</span>
+                  <span className="sm-text sm-name">{statement.name}</span>
+                  <span className="sm-text sm-amt">{'$' + statement.amt}</span>
+                </div>
+              )
+            }) :
+            patelcoStatement.map((statement, i) => {
+              return (
+                <div className="statement-line" key={"p"+i}>
+                  <span className="sm-text sm-date">{statement.date}</span>
+                  <span className="sm-text sm-name">{statement.name}</span>
+                  <span className="sm-text sm-amt">{'$' + statement.amt}</span>
+                </div>
+              )
+            })
+          }
+        </div>
       </div>
     </div>
   )

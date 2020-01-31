@@ -18,7 +18,8 @@ export default function Login(props) {
   const config = {
     baseURL: 'http://localhost:8888',
     withCredentials: true,
-    cancelToken: source.token
+    cancelToken: source.token,
+    timeout: 1000*60*3
   }
 
   function onLoginSubmit(e) {
@@ -28,6 +29,7 @@ export default function Login(props) {
     let username = e.target[0].value;
     let password = e.target[1].value;
     let banking = e.target[0].attributes.bank.value;
+    console.log(`Banking: ${banking}, User: ${username}, Pass: ${password}`)
     banking === 'Chase' ? setLoadingC(true) : setLoadingP(true);
 
     axios.post(`/login/${banking}`, {
@@ -64,7 +66,7 @@ export default function Login(props) {
     })
     .catch(err => {
       if (axios.isCancel(err)) {
-        console.log()
+        console.log('Cancelled: ' + err)
       } else {
         throw err;
       }
@@ -91,7 +93,7 @@ export default function Login(props) {
 
   useEffect(() => {
     return () => {
-      setInterval(() => source.cancel(), 3000)
+      setInterval(() => source.cancel(), 1000*60*3)
     }
   }, [source]);
 
@@ -136,7 +138,7 @@ export default function Login(props) {
         <div className="bank-login">
         {
           loadingP
-          ? <span>Loading...</span>
+          ? <><span>Loading...</span><br /><span style={{fontSize: '12px', fontStyle: 'italic'}}>Patelco's response may take up to 3 minutes</span></>
           : ( props.isAuthorized_P
               ? isLoggedIn(patelco)
               : <>

@@ -19,7 +19,7 @@ function formatPostedDate(statements) {
     let posted = statement.DTPOSTED.replace('[0:GMT]', '').split('');
     posted.splice(8);
     let post = posted.join('');
-    let formatPost = moment(post).format('ddd, MMM Do YYYY');
+    let formatPost = moment(post).format('MMM DD, YYYY');
     postedDates.push(formatPost);
   })
   return postedDates;
@@ -52,8 +52,9 @@ exports.isAuthorized = async function(user, pass, banking, res, req) {
       res.send(`${JSON.stringify(err)}`);
     } else {
       // console.log(response.body.OFX.BANKMSGSRSV1);
-      // console.log(response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST);
       const statusCode = await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STATUS.CODE;
+      console.log(response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STATUS.CODE);
+      console.log(response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN);
       const statements = statusCode != 0 ? '' : await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN;
       const postedDates = statusCode != 0 ? '' : [...formatPostedDate(await statements)];
 
@@ -73,7 +74,7 @@ exports.isAuthorized = async function(user, pass, banking, res, req) {
 
         const bankInfo = {
           statusCode: statusCode,
-          formatted: await formatted,
+          formatted: formatted,
           balance: balance,
           banking: banking === 'Chase' ? 'Chase' : 'Patelco'
         };
@@ -82,6 +83,7 @@ exports.isAuthorized = async function(user, pass, banking, res, req) {
         req.session.save();
         res.send(`${JSON.stringify(bankInfo)}`);
       } else {
+        console.log(statusCode);
         res.end(`LOGIN ERROR: STATUS CODE ${statusCode}`);
       }
     }
@@ -89,75 +91,75 @@ exports.isAuthorized = async function(user, pass, banking, res, req) {
 }
 
 // Sets up bank request and formats response
-exports.formatBalance = async function(user, pass, banking, res) {
-  let bank;
+// exports.formatBalance = async function(user, pass, banking, res) {
+//   let bank;
 
-  config.chase.user = user;
-  config.chase.pass = pass;
-  config.patelco.user = user;
-  config.patelco.pass = pass;
+//   config.chase.user = user;
+//   config.chase.pass = pass;
+//   config.patelco.user = user;
+//   config.patelco.pass = pass;
 
   // Selects bank options based on bank name
-  if (banking === 'Chase') {
-    bank = new Banking(config.chase);
-  } else if (banking === 'Patelco') {
-    bank = new Banking(config.patelco);
-  }
+  // if (banking === 'Chase') {
+  //   bank = new Banking(config.chase);
+  // } else if (banking === 'Patelco') {
+  //   bank = new Banking(config.patelco);
+  // }
 
   // Sends bank options to OFX and gets statements
-  bank.getStatement(dateRange(), async function (err, response) {
-    if (err) {
-      console.log(`OFX ERROR: ${err}`);
-    } else {
-      // returns formatted balance
-      const balance = parseFloat(await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.AVAILBAL.BALAMT).toFixed(2);
-      res.send(`${balance}`);
-    }
-  });
-}
+//   bank.getStatement(dateRange(), async function (err, response) {
+//     if (err) {
+//       console.log(`OFX ERROR: ${err}`);
+//     } else {
+//       // returns formatted balance
+//       const balance = parseFloat(await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.AVAILBAL.BALAMT).toFixed(2);
+//       res.send(`${balance}`);
+//     }
+//   });
+// }
 
 // Sets up bank request and formats response
-exports.formatStatement = async function(user, pass, banking, res) {
-  let formatted = [];
-  let bank;
+// exports.formatStatement = async function(user, pass, banking, res) {
+//   let formatted = [];
+//   let bank;
 
-  config.chase.user = user;
-  config.chase.pass = pass;
-  config.patelco.user = user;
-  config.patelco.pass = pass;
+//   config.chase.user = user;
+//   config.chase.pass = pass;
+//   config.patelco.user = user;
+//   config.patelco.pass = pass;
 
   // Selects bank options based on bank name
-  if (banking === 'Chase') {
-    bank = new Banking(config.chase);
-  } else {
-    bank = new Banking(config.patelco);
-  }
+  // if (banking === 'Chase') {
+  //   bank = new Banking(config.chase);
+  // } else {
+  //   bank = new Banking(config.patelco);
+  // }
 
   // Sends bank options to OFX and gets statements
-  bank.getStatement(dateRange(), async function (err, response) {
-    if (err) {
-      console.log(`OFX ERROR: ${err}`);
-    } else {
-      const statements = await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN;
-      const postedDates = [...formatPostedDate(await statements)];
+  // bank.getStatement(dateRange(), async function (err, response) {
+  //   if (err) {
+  //     console.log(`OFX ERROR: ${err}`);
+  //   } else {
+  //     const statements = await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN;
+  //     const postedDates = [...formatPostedDate(await statements)];
 
       // Formats statement info to digestable data
-      statements.forEach((data, idx) => {
-        formatted.push({
-          type: data.TRNTYPE,
-          date: postedDates[idx],
-          name: data.NAME,
-          memo: data.MEMO ? data.MEMO : ''
-        });
-      });
-      const statusCode = await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STATUS.CODE;
-      const balance = parseFloat(await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.AVAILBAL.BALAMT).toFixed(2);
-      const bankInfo = {
-        statusCode: statusCode,
-        formatted: await formatted,
-        balance: balance
-      }
-      res.end(`${JSON.stringify(bankInfo)}`);
-    }
-  });
-}
+//       statements.forEach((data, idx) => {
+//         formatted.push({
+//           type: data.TRNTYPE,
+//           date: postedDates[idx],
+//           name: data.NAME,
+//           memo: data.MEMO ? data.MEMO : ''
+//         });
+//       });
+//       const statusCode = await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STATUS.CODE;
+//       const balance = parseFloat(await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.AVAILBAL.BALAMT).toFixed(2);
+//       const bankInfo = {
+//         statusCode: statusCode,
+//         formatted: await formatted,
+//         balance: balance
+//       }
+//       res.end(`${JSON.stringify(bankInfo)}`);
+//     }
+//   });
+// }

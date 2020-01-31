@@ -72,32 +72,40 @@ export default function Dashboard(props) {
       <div className="balances-info-wrap">
         {
           logoutConfirmed
-          ? <div>
+          ? <div className="logout-modal-wrap">
               {
                 logoutSuccessful
-                ? <div>
-                    <span>You have successfully been logged out.</span>
-                    <Link to="/">
+                ? <div className="logout-modal">
+                    <span className="logout-text">You have successfully been logged out.</span>
+                    <Link  className="logout-ok"  to="/">
                       <button onClick={bubbleLogout}>Ok</button>
                     </Link>
                   </div>
-                : <div>
-                    <p>Are you sure you want to logout?</p>
-                    <button onClick={handleConfirmedLogout}>Yes</button>
-                    <button onClick={handleLogout}>Cancel</button>
+                : <div className="logout-modal">
+                    <p className="logout-text">Are you sure you want to logout?</p>
+                    <div className="logout-confirm-btns">
+                      <button onClick={handleConfirmedLogout}>Yes</button>
+                      <button onClick={handleLogout}>Cancel</button>
+                    </div>
                   </div>
               }
             </div>
           : ''
         }
-        <h2 className="balances-header-text">Balances</h2>
+        <div style={{display: 'flex', maxWidth: 800, minWidth: 800, padding: '0 0 0 32px'}}>
+          <h2 className="balances-header-text">Balances</h2>
+        </div>
         {
           props.chaseBalance
           ? (
-            <div className="bank-balances-info-wrap">
-              <h3 className="bank-name">{ chase }</h3>
-              <span className="actual-balance-text">${props.chaseBalance}</span>
-              <Link className="statements-link" to={`/dashboard/statements/${chase}`}>See Recent Transactions</Link>
+            <div id="chase-info-wrap" className="bank-balances-info-wrap">
+              <div>
+                <h3 className="bank-name">{ chase }</h3>
+                <Link className="statements-link" to={`/dashboard/statements/${chase}`}>See Recent Transactions</Link>
+              </div>
+              <div>
+                <span className="actual-balance-text">${props.chaseBalance}</span>
+              </div>
             </div>
           )
           : ''
@@ -105,10 +113,14 @@ export default function Dashboard(props) {
         {
           props.patelcoBalance
           ? (
-            <div>
-              <h3>{ patelco }</h3>
-              <span>${props.patelcoBalance}</span>
-              <Link to={`/dashboard/statements/${patelco}`}>See Recent Transactions</Link>
+            <div id="patelco-info-wrap" className="bank-balances-info-wrap">
+              <div>
+                <h3 className="bank-name">{ patelco }</h3>
+                <Link className="statements-link" to={`/dashboard/statements/${patelco}`}>See Recent Transactions</Link>
+              </div>
+              <div>
+                <span className="actual-balance-text">${props.patelcoBalance}</span>
+              </div>
             </div>
           )
           : ''

@@ -1,0 +1,92 @@
+.statement-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  z-index: 999;
+  background-color: rgba(0,0,0,0.6);
+  overflow: hidden;
+  clear: both;
+}
+
+.statement-container {
+  display: flex;
+  float: right;
+  flex-direction: column;
+  padding: 16px;
+  transform: translateX(100%);
+  width: 1000px;
+  min-height: 100%;
+  background-color: #f9f9f9;
+  top: 0;
+  transition: 0.275 ease-in-out;
+  animation-name: slideOut;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.statement-head {
+  display: flex;
+  align-items: center;
+  margin: 0 0 16px 0;
+}
+
+.statement-bank-heading {
+  font-size: 32px;
+  margin: 0 0 0 16px;
+}
+
+.back-btn {
+  transition: ease-in-out 0.175s, width 0.250s ease-in-out;
+}
+
+.back-btn:hover {
+  background-color: rgb(62, 176, 182);
+}
+
+.sm-line-wrap {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 0 16px 0 76px;
+  border-radius: 4px;
+  box-shadow: 0 12px 12px rgba(0,0,0,0.2);
+}
+
+.statement-line {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  border-bottom: solid 1px rgb(211, 211, 211);
+}
+
+.sm-text {
+  font-size: 16px;
+}
+
+.sm-date {
+  width: 116px;
+}
+
+.sm-name {
+  text-transform: uppercase;
+}
+
+.sm-amt {
+  float: right;
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: bold;
+}
