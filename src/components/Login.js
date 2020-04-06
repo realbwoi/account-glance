@@ -180,6 +180,12 @@ export default function Login(props) {
           See Balances
         </button>
       </Link>
+
+      <div style={{margin: '0 auto', padding: '16px', backgroundColor: 'rgba(255, 0, 0, 0.5)', borderRadius: '4px'}}>
+        <p style={{margin: '0 0 8px 0', textTransform: 'uppercase', textAlign: 'center'}}>Test Account</p>
+        <p style={{margin: 0}}>Username: <b><i>test</i></b></p>
+        <p style={{margin: 0}}>Password: <b><i>12345</i></b></p>
+      </div>
     </div>
   )
 }

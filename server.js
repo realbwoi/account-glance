@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const Keygrip = require('keygrip');
 const initBank = require('./util/init-bank');
+const test = require('./util/test');
 const app = express();
 
 dotenv.config();
@@ -47,10 +48,15 @@ app.get('/', (req, res) => {
   res.send('Hello, it works!');
 });
 
-app.post('/login/:banking', (req, res) => {
+app.post('/login/:banking', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const banking = req.body.banking;
+
+  if (username === 'test') {
+    let testData = await test.isTestAcct(banking);
+    res.send(await testData);
+  }
 
   initBank.isAuthorized(username, password, banking, res, req);
   console.log(req.session);

@@ -53,7 +53,7 @@ exports.isAuthorized = async function(user, pass, banking, res, req) {
     } else {
       // console.log(response.body.OFX.BANKMSGSRSV1);
       const statusCode = await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STATUS.CODE;
-      console.log(response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STATUS.CODE);
+      // console.log(response.body.OFX.BANKMSGSRSV1);
       console.log(response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN);
       const statements = statusCode != 0 ? '' : await response.body.OFX.BANKMSGSRSV1.STMTTRNRS.STMTRS.BANKTRANLIST.STMTTRN;
       const postedDates = statusCode != 0 ? '' : [...formatPostedDate(await statements)];
